@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Data;
 using TaskManagerAPI.Repositories.Interface;
 
@@ -18,9 +19,20 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
             throw new NotImplementedException();
         }
 
-        public Task<Models.Domain.Task?> DeleteAsync(Guid id)
+        public async Task<Models.Domain.Task?> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var existingTask = await dbContext.Tasks.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (existingTask == null)
+            {
+                return null;
+            }
+
+            dbContext.Tasks.Remove(existingTask);
+            _ = dbContext.SaveChangesAsync();
+            return existingTask;
+
+
         }
 
         public async Task<List<Models.Domain.Task>> GetAllAsync()

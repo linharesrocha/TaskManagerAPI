@@ -35,6 +35,23 @@ namespace TaskManagerAPI.Controllers
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             var taskDomain = await taskRepository.GetByIdAsync(id);
+            
+            if (taskDomain == null)
+            {
+                return NotFound();
+            }
+
+            var taskDto = mapper.Map<TaskDto>(taskDomain);
+
+            return Ok(taskDto);
+        }
+
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var taskDomain = await taskRepository.DeleteAsync(id);
+
             if (taskDomain == null)
             {
                 return NotFound();
