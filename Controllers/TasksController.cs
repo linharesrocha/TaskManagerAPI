@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TaskManagerAPI.CustomActionFilters;
 using TaskManagerAPI.Models.DTO;
 using TaskManagerAPI.Repositories.Interface;
 using TaskManagerAPI.Repositories.SQLServerImplementation;
@@ -44,6 +45,19 @@ namespace TaskManagerAPI.Controllers
             var taskDto = mapper.Map<TaskDto>(taskDomain);
 
             return Ok(taskDto);
+        }
+
+        [HttpPost]
+        [ValidateModel]
+        public async Task<IActionResult> Create([FromBody] AddTaskRequestDto addTaskRequestDto)
+        {
+            var taskDomain = mapper.Map<Models.Domain.Task>(addTaskRequestDto);
+
+            taskDomain = await taskRepository.CreateAsync(taskDomain);
+
+            var taskDto = mapper.Map<TaskDto>(taskDomain);
+
+            return CreatedAtAction(nameof(GetById), new { id = taskDto.Id}, taskDto);
         }
 
         [HttpDelete]

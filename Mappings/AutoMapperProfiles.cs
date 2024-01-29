@@ -8,6 +8,7 @@ namespace TaskManagerAPI.Mappings
         public AutoMapperProfiles()
         {
             CreateMap<Models.Domain.Task, TaskDto>().ReverseMap();
+            CreateMap<Models.Domain.Task, AddTaskRequestDto>().ReverseMap();
         }
     }
 }

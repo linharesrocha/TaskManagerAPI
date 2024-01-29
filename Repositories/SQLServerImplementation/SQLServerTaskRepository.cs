@@ -14,9 +14,11 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
             this.dbContext = dbContext;
         }
 
-        public Task<Models.Domain.Task> CreateAsync(Models.Domain.Task task)
+        public async Task<Models.Domain.Task> CreateAsync(Models.Domain.Task task)
         {
-            throw new NotImplementedException();
+            await dbContext.AddAsync(task);
+            await dbContext.SaveChangesAsync();
+            return task;
         }
 
         public async Task<Models.Domain.Task?> DeleteAsync(Guid id)
