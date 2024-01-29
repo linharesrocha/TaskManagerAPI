@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\SQLServerImplementation\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
