@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using TaskManagerAPI.Repositories.Interface;
 using TaskManagerAPI.Repositories.SQLServerImplementation;
 
 namespace TaskManagerAPI.Controllers
 {
-    public class TasksController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TasksController : ControllerBase
     {
         private readonly ITaskRepository taskRepository;
 
@@ -14,9 +17,11 @@ namespace TaskManagerAPI.Controllers
         }
 
         [HttpGet]
-        public async IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var tasksDomain = taskRepository.GetAllAsync();
+            var tasksDomain = await taskRepository.GetAllAsync();
+
+            return Ok(tasksDomain);
         }
     }
 }
