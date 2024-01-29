@@ -29,5 +29,20 @@ namespace TaskManagerAPI.Controllers
 
             return Ok(tasksDto);
         }
+
+        [HttpGet]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var taskDomain = await taskRepository.GetByIdAsync(id);
+            if (taskDomain == null)
+            {
+                return NotFound();
+            }
+
+            var taskDto = mapper.Map<TaskDto>(taskDomain);
+
+            return Ok(taskDto);
+        }
     }
 }

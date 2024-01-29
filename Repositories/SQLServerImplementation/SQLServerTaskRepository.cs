@@ -28,9 +28,9 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
             return await dbContext.Tasks.ToListAsync();
         }
 
-        public Task<Models.Domain.Task> GetByIdAsync(Guid id)
+        public async Task<Models.Domain.Task?> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Tasks.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public Task<Models.Domain.Task?> UpdateAsync(Guid id, Models.Domain.Task task)
