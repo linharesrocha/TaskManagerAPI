@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Task = TaskManagerAPI.Models.Domain.Task;
+using CustomTask = TaskManagerAPI.Models.Domain.Task;
 
 namespace TaskManagerAPI.Data
 {
@@ -9,6 +9,6 @@ namespace TaskManagerAPI.Data
         {
             
         }
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<CustomTask> Tasks { get; set; }
     }
 }
