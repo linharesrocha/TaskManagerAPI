@@ -47,9 +47,20 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
             return await dbContext.Tasks.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<Models.Domain.Task?> UpdateAsync(Guid id, Models.Domain.Task task)
+        public async Task<Models.Domain.Task?> UpdateAsync(Guid id, Models.Domain.Task task)
         {
-            throw new NotImplementedException();
+            var existingTask = await dbContext.Tasks.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (existingTask == null)
+            {
+                return null;
+            }
+
+            existingTask.Name = task.Name;
+            existingTask.Description = task.Description;
+            
+            _ = dbContext.SaveChangesAsync();
+            return existingTask;
         }
     }
 }

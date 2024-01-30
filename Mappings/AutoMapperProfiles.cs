@@ -9,6 +9,7 @@ namespace TaskManagerAPI.Mappings
         {
             CreateMap<Models.Domain.Task, TaskDto>().ReverseMap();
             CreateMap<Models.Domain.Task, AddTaskRequestDto>().ReverseMap();
+            CreateMap<Models.Domain.Task, UpdateTaskRequestDto>().ReverseMap();
         }
     }
 }

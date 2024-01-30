@@ -75,5 +75,29 @@ namespace TaskManagerAPI.Controllers
 
             return Ok(taskDto);
         }
+
+        [HttpPut]
+        [Route("{id:Guid}")]
+        [ValidateModel]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTaskRequestDto updateTaskRequestDto)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var taskDomain = mapper.Map<Models.Domain.Task>(updateTaskRequestDto);
+
+            taskDomain = await taskRepository.UpdateAsync(id, taskDomain);
+
+            if (taskDomain == null)
+            {
+                return NotFound();
+            }
+
+            var taskDto = mapper.Map<TaskDto>(taskDomain);
+
+            return Ok(taskDto);
+        }
     }
 }
