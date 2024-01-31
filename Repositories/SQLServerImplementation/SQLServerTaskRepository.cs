@@ -37,7 +37,9 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
 
         }
 
-        public async Task<List<Models.Domain.Task>> GetAllAsync(string? filterOn = null, string? filterQuery = null)
+        public async Task<List<Models.Domain.Task>> GetAllAsync(
+            string? filterOn = null, string? filterQuery = null,
+            string? sortBy = null, bool isAscending = true)
         {
             var tasksDomain = dbContext.Tasks.AsQueryable();
 
@@ -51,6 +53,18 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
                 else if(filterOn.Equals("Description", StringComparison.OrdinalIgnoreCase))
                 {
                     tasksDomain = tasksDomain.Where(x => x.Description.Contains(filterQuery));
+                }
+            }
+
+            // Sorting
+            if(string.IsNullOrWhiteSpace(sortBy) == false)
+            {
+                if(sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    tasksDomain = isAscending ? tasksDomain.OrderBy(x => x.Name) : tasksDomain.OrderByDescending(x => x.Name);
+                }
+                else if(sortBy.Equals("Description", StringComparison.OrdinalIgnoreCase)) {
+                    tasksDomain = isAscending ? tasksDomain.OrderBy(x => x.Description) : tasksDomain.OrderByDescending(x => x.Description);
                 }
             }
 
