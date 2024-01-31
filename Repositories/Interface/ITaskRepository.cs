@@ -7,7 +7,8 @@ namespace TaskManagerAPI.Repositories.Interface
     {
         Task<List<CustomTask>> GetAllAsync(
             string? filterOn = null, string? filterQuery = null,
-            string? sortBy = null, bool isAscending = true);
+            string? sortBy = null, bool isAscending = true,
+            int pageNumber = 1, int pageSize = 5);
         Task<CustomTask?> GetByIdAsync(Guid id);
         Task<CustomTask> CreateAsync(CustomTask task);
         Task<CustomTask?> UpdateAsync(Guid id, CustomTask task);

@@ -39,7 +39,8 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
 
         public async Task<List<Models.Domain.Task>> GetAllAsync(
             string? filterOn = null, string? filterQuery = null,
-            string? sortBy = null, bool isAscending = true)
+            string? sortBy = null, bool isAscending = true,
+            int pageNumber = 1, int pageSize = 5)
         {
             var tasksDomain = dbContext.Tasks.AsQueryable();
 
@@ -68,7 +69,10 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
                 }
             }
 
-            return await tasksDomain.ToListAsync();
+            // Pagination
+            var skipResults = (pageNumber - 1) * pageSize;
+
+            return await tasksDomain.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
         public async Task<Models.Domain.Task?> GetByIdAsync(Guid id)
