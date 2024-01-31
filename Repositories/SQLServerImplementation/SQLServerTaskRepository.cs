@@ -37,9 +37,24 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
 
         }
 
-        public async Task<List<Models.Domain.Task>> GetAllAsync()
+        public async Task<List<Models.Domain.Task>> GetAllAsync(string? filterOn = null, string? filterQuery = null)
         {
-            return await dbContext.Tasks.ToListAsync();
+            var tasksDomain = dbContext.Tasks.AsQueryable();
+
+            // Filtering
+            if(string.IsNullOrWhiteSpace(filterOn) == false && string.IsNullOrWhiteSpace(filterQuery) == false)
+            {
+                if(filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    tasksDomain = tasksDomain.Where(x => x.Name.Contains(filterQuery)); 
+                }
+                else if(filterOn.Equals("Description", StringComparison.OrdinalIgnoreCase))
+                {
+                    tasksDomain = tasksDomain.Where(x => x.Description.Contains(filterQuery));
+                }
+            }
+
+            return await tasksDomain.ToListAsync();
         }
 
         public async Task<Models.Domain.Task?> GetByIdAsync(Guid id)

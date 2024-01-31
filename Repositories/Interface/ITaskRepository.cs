@@ -5,7 +5,7 @@ namespace TaskManagerAPI.Repositories.Interface
 {
     public interface ITaskRepository
     {
-        Task<List<CustomTask>> GetAllAsync();
+        Task<List<CustomTask>> GetAllAsync(string? filterOn = null, string? filterQuery = null);
         Task<CustomTask?> GetByIdAsync(Guid id);
         Task<CustomTask> CreateAsync(CustomTask task);
         Task<CustomTask?> UpdateAsync(Guid id, CustomTask task);

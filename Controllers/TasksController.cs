@@ -22,9 +22,9 @@ namespace TaskManagerAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
         {
-            var tasksDomain = await taskRepository.GetAllAsync();
+            var tasksDomain = await taskRepository.GetAllAsync(filterOn, filterQuery);
 
             var tasksDto = mapper.Map<List<TaskDto>>(tasksDomain);
 
