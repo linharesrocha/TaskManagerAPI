@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using TaskManagerAPI.Data;
+using TaskManagerAPI.Models.Domain;
 using TaskManagerAPI.Repositories.Interface;
 
 namespace TaskManagerAPI.Repositories.SQLServerImplementation
@@ -40,7 +41,7 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
         public async Task<List<Models.Domain.Task>> GetAllAsync(
             string? filterOn = null, string? filterQuery = null,
             string? sortBy = null, bool isAscending = true,
-            int pageNumber = 1, int pageSize = 5)
+            int pageNumber = 1, int pageSize = 50)
         {
             var tasksDomain = dbContext.Tasks.AsQueryable();
 
@@ -54,6 +55,12 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
                 else if(filterOn.Equals("Description", StringComparison.OrdinalIgnoreCase))
                 {
                     tasksDomain = tasksDomain.Where(x => x.Description.Contains(filterQuery));
+                }
+                else if(filterOn.Equals("Priority", StringComparison.OrdinalIgnoreCase))
+                {
+                    if(Enum.TryParse(filterQuery, true, out PriorityLevel priorityFilter)) {
+                        tasksDomain = tasksDomain.Where(x => x.Priority == priorityFilter);
+                    }
                 }
             }
 

@@ -26,7 +26,7 @@ namespace TaskManagerAPI.Controllers
         public async Task<IActionResult> GetAll(
             [FromQuery] string? filterOn, [FromQuery] string? filterQuery,
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
-            [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 5)
+            [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 50)
         {
             var tasksDomain = await taskRepository.GetAllAsync(
                 filterOn, filterQuery, 
