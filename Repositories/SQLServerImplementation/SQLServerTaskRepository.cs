@@ -17,6 +17,7 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
 
         public async Task<Models.Domain.Task> CreateAsync(Models.Domain.Task task)
         {
+            task.CreatedAt = DateTime.Now;
             await dbContext.AddAsync(task);
             await dbContext.SaveChangesAsync();
             return task;
@@ -96,6 +97,7 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
                 return null;
             }
 
+            existingTask.UpdatedAt = DateTime.Now;
             existingTask.Name = task.Name;
             existingTask.Description = task.Description;
             
