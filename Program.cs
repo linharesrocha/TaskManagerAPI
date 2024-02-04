@@ -21,6 +21,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("TaskManagerConne
 
 // Repositories
 builder.Services.AddScoped<ITaskRepository, SQLServerTaskRepository>();
+builder.Services.AddScoped<IListRepository, SQLServerListRepository>();
 
 // Mapping
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));

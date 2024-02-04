@@ -89,10 +89,6 @@ namespace TaskManagerAPI.Controllers
         [ValidateModel]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateTaskRequestDto updateTaskRequestDto)
         {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
 
             var taskDomain = mapper.Map<Models.Domain.Task>(updateTaskRequestDto);
 

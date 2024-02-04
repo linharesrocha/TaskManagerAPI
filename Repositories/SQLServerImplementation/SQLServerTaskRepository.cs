@@ -35,8 +35,6 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
             dbContext.Tasks.Remove(existingTask);
             _ = dbContext.SaveChangesAsync();
             return existingTask;
-
-
         }
 
         public async Task<List<Models.Domain.Task>> GetAllAsync(
