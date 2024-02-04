@@ -9,7 +9,10 @@
         public PriorityLevel? Priority { get; set;}
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
         public Guid ListId { get; set; }
+
+        // Navigation Properties
         public List List { get; set; }
     }
 

@@ -78,7 +78,7 @@ namespace TaskManagerAPI.Repositories.SQLServerImplementation
             // Pagination
             var skipResults = (pageNumber - 1) * pageSize;
 
-            return await tasksDomain.Skip(skipResults).Take(pageSize).ToListAsync();
+            return await tasksDomain.Include("List").Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
         public async Task<Models.Domain.Task?> GetByIdAsync(Guid id)

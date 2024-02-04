@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TaskManagerAPI.CustomActionFilters;
-using TaskManagerAPI.Models.Domain;
 using TaskManagerAPI.Models.DTO;
 using TaskManagerAPI.Repositories.Interface;
-using TaskManagerAPI.Repositories.SQLServerImplementation;
 
 namespace TaskManagerAPI.Controllers
 {

@@ -12,9 +12,6 @@ namespace TaskManagerAPI.Models.DTO
 
         public PriorityLevel Priority { get; set; }
 
-        [Required]
         public Guid ListId { get; set; }
-        [Required]
-        public List List { get; set; }
     }
 }

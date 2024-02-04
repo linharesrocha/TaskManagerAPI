@@ -12,6 +12,7 @@ namespace TaskManagerAPI.Models.DTO
         public DateTime UpdatedAt { get; set; }
 
         public Guid ListId { get; set; }
-        public List List { get; set; } 
+
+        public ListDto List { get; set; }
     }
 }

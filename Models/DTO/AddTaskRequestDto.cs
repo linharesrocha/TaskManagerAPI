@@ -12,9 +12,7 @@ namespace TaskManagerAPI.Models.DTO
 
         public PriorityLevel Priority { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "ListId is required")]
         public Guid ListId { get; set; }
-        [Required]
-        public List List { get; set; }
     }
 }
